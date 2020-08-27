@@ -1,21 +1,23 @@
 package database;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Bucket {
-    private ConcurrentHashMap<String, byte[]> db = new ConcurrentHashMap<>();
+    private final Map<String, Object> db = new ConcurrentHashMap<>();
 
-    public void put(String key, byte[] value){
-        db.put(key ,value);
+    public void put(String key, Object value){
+        db.put(key, value);
     }
-    public byte[] get(String key) {
+    public Object get(String key) {
         return db.get(key);
     }
-    public void clear() { db.clear(); }
     public void delete(String key) {
         db.remove(key);
     }
-    public Cursor Cursor() {
+    public void clear() { db.clear(); }
+
+    public Cursor cursor() {
         return new Cursor(db);
     }
 
